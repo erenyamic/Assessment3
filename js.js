@@ -288,9 +288,10 @@ function initialize() {
         myGrid.cells[i] = 0;
     }
     // setTimeout(assignRoles, 500);
-    setInterval(showOptions, 500);
+    setTimeout(showOptions, 500); // Popup sadece bir kez gösterilecek
     // debugger;
 }
+
 
 // Ask player if they want to play as X or O. X goes first.
 function assignRoles() {
