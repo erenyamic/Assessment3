@@ -28,7 +28,7 @@ etc.
 
 (2) Strategy of makeComputerMove()
 
-The computer first  looks for almost completed rows, columns, and
+The computer first looks for almost completed rows, columns, and
 diagonals, where there are two fields occupied either by the human
 player or by the computer itself. If the computer can win by
 completing a sequence, it does so; if it can block the player from
@@ -112,8 +112,8 @@ var moves = 0,
         player: 0,
         computer: 0
     },
-    xText = "<span class=\"x\">&times;</class>",
-    oText = "<span class=\"o\">o</class>",
+    xText = "<span class=\"x\">&times;</span>",
+    oText = "<span class=\"o\">o</span>",
     playerText = xText,
     computerText = oText,
     difficulty = 1,
@@ -144,8 +144,6 @@ Grid.prototype.getFreeCellIndices = function () {
             resultArray.push(i);
         }
     }
-    // console.log("resultArray: " + resultArray.toString());
-    // debugger;
     return resultArray;
 };
 
@@ -287,11 +285,8 @@ function initialize() {
     for (var i = 0; i <= myGrid.cells.length - 1; i++) {
         myGrid.cells[i] = 0;
     }
-    // setTimeout(assignRoles, 500);
     setTimeout(showOptions, 500); // Popup sadece bir kez gösterilecek
-    // debugger;
 }
-
 
 // Ask player if they want to play as X or O. X goes first.
 function assignRoles() {
@@ -375,7 +370,6 @@ function restartGame(ask) {
         document.getElementById(id).classList.remove("win-color");
     }
     if (ask === true) {
-        // setTimeout(assignRoles, 200);
         setTimeout(showOptions, 200);
     } else if (whoseTurn == computer) {
         setTimeout(makeComputerMove, 800);
@@ -384,7 +378,6 @@ function restartGame(ask) {
 
 // The core logic of the game AI:
 function makeComputerMove() {
-    // debugger;
     if (gameOver) {
         return false;
     }
@@ -467,7 +460,6 @@ function makeComputerMove() {
         }
     }
     var id = "cell" + cell.toString();
-    // console.log("computer chooses " + id);
     document.getElementById(id).innerHTML = computerText;
     document.getElementById(id).style.cursor = "default";
     // randomize rotation of marks on the board to make them look
@@ -499,11 +491,9 @@ function checkWin() {
             if (row[0] == computer) {
                 score.computer++;
                 winner = computer;
-                // console.log("computer wins");
             } else {
                 score.player++;
                 winner = player;
-                // console.log("player wins");
             }
             // Give the winning row/column/diagonal a different bg-color
             var tmpAr = myGrid.getRowIndices(i);
@@ -523,11 +513,9 @@ function checkWin() {
             if (col[0] == computer) {
                 score.computer++;
                 winner = computer;
-                // console.log("computer wins");
             } else {
                 score.player++;
                 winner = player;
-                // console.log("player wins");
             }
             // Give the winning row/column/diagonal a different bg-color
             var tmpAr = myGrid.getColumnIndices(i);
@@ -547,11 +535,9 @@ function checkWin() {
             if (diagonal[0] == computer) {
                 score.computer++;
                 winner = computer;
-                // console.log("computer wins");
             } else {
                 score.player++;
                 winner = player;
-                // console.log("player wins");
             }
             // Give the winning row/column/diagonal a different bg-color
             var tmpAr = myGrid.getDiagIndices(i);
@@ -588,6 +574,10 @@ function askUser(text) {
 }
 
 function showOptions() {
+    const playerName = "Player"; // Buraya kullanıcı adını dinamik olarak çekebilirsiniz
+    const optionsTitle = `Hi ${playerName}, how would you like to play?`;
+    document.querySelector("#optionsDlg h2").textContent = optionsTitle;
+
     if (player == o) {
         document.getElementById("rx").checked = false;
         document.getElementById("ro").checked = true;
@@ -613,7 +603,6 @@ function getOptions() {
         if (diffs[i].checked) {
             difficulty = parseInt(diffs[i].value);
             break;
-            // debugger;
         }
     }
     if (document.getElementById('rx').checked === true) {
@@ -640,7 +629,7 @@ function closeModal(id) {
 
 function endGame(who) {
     if (who == player) {
-        announceWinner("Congratulations, [Your name] won!");
+        announceWinner("Congratulations, you won!");
     } else if (who == computer) {
         announceWinner("Computer wins!");
     } else {
@@ -659,4 +648,3 @@ function endGame(who) {
     }
     setTimeout(restartGame, 800);
 }
-
